@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Skin support example</title>
-<link rel="stylesheet" href="tiny_mce.css">
+<link rel="stylesheet" href="./tiny_mce/tiny_mce.css">
 
 <!-- TinyMCE -->
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="./tiny_mce/jquery.tinymce.js"></script>
-<script type="text/javascript" src="./tiny_mce/tinymce.js"></script>
+<script type="text/javascript" src="./tiny_mce/wordcount.js"></script>
 <script type="text/javascript">
 	$(function() {
 		// Wordpress theme
@@ -29,12 +29,34 @@
 	    theme_advanced_toolbar_align : "left",
 	    theme_advanced_statusbar_location : "bottom",
 	    theme_advanced_resizing : true,
+      theme_advanced_resize_horizontal: false,
+      dialog_type: "modal",
+      
+      relative_urls: false,
+      remove_script_host: false,
+      convert_urls: false,
+      apply_source_formatting: false,
+      remove_linebreaks: true,
+      gecko_spellcheck: true,
+      entities: "38,amp,60,lt,62,gt",
+      accessibility_focus: true,
+      tabfocus_elements: "major-publishing-actions",
+      media_strict: false,
+      paste_remove_styles: true,
+      paste_remove_spans: true,
+      paste_strip_class_attributes: "all",
+      paste_text_use_dialog: true,
 
 	    // Example content CSS (should be your site CSS)
 	    content_css : "./tiny_mce/themes/advanced/skins/default/content.css",
     
 	    width : "100%",
-	    height: "250"
+	    height: "250",
+  		load_ext: function(url, lang) {
+          var sl = tinymce.ScriptLoader;
+          sl.markDone(url + '/langs/' + lang + '.js');
+          sl.markDone(url + '/langs/' + lang + '_dlg.js');
+      }
 		});
 	});
 </script>
@@ -54,6 +76,11 @@
 		<textarea id="elm4" name="elm4" rows="15" cols="80" style="width: 100%">
 			Test...
 		</textarea>
+    <table id="post-status-info" cellspacing="0"><tbody><tr>
+    	<td id="wp-word-count"></td>
+    	<td class="autosave-info"></td>
+    </tr></tbody></table>
+		
 	</div>
 	<br />
 
